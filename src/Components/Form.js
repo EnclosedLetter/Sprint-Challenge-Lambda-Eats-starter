@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
 
 const formSchema = yup.object().shape({ //2) set the text restrictions.
     name: yup //this will be our text input field
@@ -87,7 +88,7 @@ export default function Form (){
         const newFormData = {
             ...formState,
             [e.target.name]:
-            e.target.type /*=== "checkbox" ? e.target.checked: e.target.value*/
+            e.target.type === "checkbox" ? e.target.checked: e.target.value
         };
         validateChange(e);
         setFormState(newFormData);
@@ -95,6 +96,9 @@ export default function Form (){
     
     return (
         <form onSubmit={formSubmit}>
+            <Link to="/">
+                <div>Home Page</div>
+            </Link>
             <h1>You can get any toppings, which ones are you choosing?</h1>
             <label htmlFor="name" >
                 Name:
@@ -118,9 +122,10 @@ export default function Form (){
                 // value={formState.size}
                 onChange={inputChange}
                 >
+                <option value="none">CHOOSE ONE HERE</option>
                 <option value="small">Small</option>
-                <option value="medium">Small</option>
-                <option value="large">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
                 </select>      
             </label> <br/>
 
@@ -128,23 +133,27 @@ export default function Form (){
                 What are your instructions?
                 <textarea
                 id="instructions"
-                // name="size"
-                // value={formState.instructions}
+                name="instructions"
                 onChange={inputChange}
                 />
-                {errors.instructions.length > 0 ? <p className="errors">{errors.instructions}</p>: null}        
+                {/* {errors.instructions.length > 0 ? <p className="errors">{errors.instructions}</p>: null}         */}
             </label> <br/>
 
             <label htmlFor="toppings">
-                What are your instructions?
-                <textarea
-                id="instructions"
-                // name="size"
-                // value={formState.instructions}
+                toppings
+                <input
+                id="toppings"
+                type="checkbox"
+                name="toppings"
+                checked={formState.toppings}
                 onChange={inputChange}
                 />
-                {errors.instructions.length > 0 ? <p className="errors">{errors.instructions}</p>: null}        
-            </label> <br/>
+                {/* {errors.toppings.length > 0 ? <p className="errors">{errors.toppings}</p>: null}         */}
+            </label>
+            
+            {/* display our post request data */}
+        <pre>{JSON.stringify(post,null, 2)}</pre>
+        <button disabled={button}> Submit </button>
         </form>
     )
 };
