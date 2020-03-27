@@ -27,7 +27,7 @@ export default function Form (){
 
     const [ formState, setFormState ] = useState({ //3 Set our form state
         name:"",
-        seze:"",
+        size:"",
         instructions:"",
         toppings:""
 
@@ -51,7 +51,7 @@ export default function Form (){
     const formSubmit = e => { //6) Form submit state
         e.preventDefault();
         axios
-            .post("https://reqres.in/api/orders", formState)
+            .post("https://reqres.in/api/pizzas", formState)
             .then(response => {
                 setPost(response.data);
 
@@ -67,7 +67,7 @@ export default function Form (){
     const validateChange = e => { //7)
         yup
             .reach(formSchema, e.target.name)
-            .validate(e.target.valve ===)
+            .validate(e.target.name === "toppings" ? e.target.checked: e.target.value) //may have to change toppings to terms. 
             .then(valid => {
                 setErrors({
                     ...errors,
@@ -78,7 +78,73 @@ export default function Form (){
                 setErrors({
                     ...errors,
                     [e.target.name]: errors.errors[0]
-                })
-            })
-    }
+                });
+            });
+    };
+
+    const inputChange = e => {
+        e.persist(); //constantly checking to see what the user is typing in and checking if its valid
+        const newFormData = {
+            ...formState,
+            [e.target.name]:
+            e.target.type /*=== "checkbox" ? e.target.checked: e.target.value*/
+        };
+        validateChange(e);
+        setFormState(newFormData);
+    };
+    
+    return (
+        <form onSubmit={formSubmit}>
+            <h1>You can get any toppings, which ones are you choosing?</h1>
+            <label htmlFor="name" >
+                Name:
+                <input
+                    id="name" //This connects the htmlFor to the id, make sure they have the same name
+                    type="text"
+                    name="name"
+                    value={formState.name}
+                    onChange={inputChange}
+                />
+                {/* This error connects with the schema for the first error that we have written */}
+                {errors.name.length > 0 ? <p className="errors">{errors.name}</p>: null}
+            </label><br/>
+
+            <label htmlFor="size">
+                Choose Your Size:
+                <select
+                id="size"
+                // type="dropdown"
+                name="size"
+                // value={formState.size}
+                onChange={inputChange}
+                >
+                <option value="small">Small</option>
+                <option value="medium">Small</option>
+                <option value="large">Small</option>
+                </select>      
+            </label> <br/>
+
+            <label htmlFor="instructions">
+                What are your instructions?
+                <textarea
+                id="instructions"
+                // name="size"
+                // value={formState.instructions}
+                onChange={inputChange}
+                />
+                {errors.instructions.length > 0 ? <p className="errors">{errors.instructions}</p>: null}        
+            </label> <br/>
+
+            <label htmlFor="toppings">
+                What are your instructions?
+                <textarea
+                id="instructions"
+                // name="size"
+                // value={formState.instructions}
+                onChange={inputChange}
+                />
+                {errors.instructions.length > 0 ? <p className="errors">{errors.instructions}</p>: null}        
+            </label> <br/>
+        </form>
+    )
 };
