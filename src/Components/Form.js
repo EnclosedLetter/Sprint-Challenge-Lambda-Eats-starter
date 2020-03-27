@@ -115,9 +115,10 @@ export default function Form (){
 
             <label htmlFor="size">
                 Choose Your Size:
-                <select
+                <select id="sizesID"
                 id="size"
                 // type="dropdown"
+                data cy ="select"
                 name="size"
                 // value={formState.size}
                 onChange={inputChange}
@@ -140,16 +141,59 @@ export default function Form (){
             </label> <br/>
 
             <label htmlFor="toppings">
-                toppings
-                <input
+                Choose your toppings: 
+                <inputBROKEN
                 id="toppings"
                 type="checkbox"
                 name="toppings"
                 checked={formState.toppings}
                 onChange={inputChange}
                 />
-                {/* {errors.toppings.length > 0 ? <p className="errors">{errors.toppings}</p>: null}         */}
-            </label>
+            </label><br/>
+
+            <label htmlFor="toppings">
+                Pepperoni? 
+                <input
+                id="toppings"
+                type="checkbox"
+                name="toppings"
+                checked={formState.toppings0}
+                onChange={inputChange}
+                />
+            </label><br/>
+
+            <label htmlFor="toppings">
+                Cheese? 
+                <input
+                id="toppings"
+                type="checkbox"
+                name="toppings"
+                checked={formState.toppings2}
+                onChange={inputChange}
+                />
+            </label><br/>
+
+            <label htmlFor="toppings">
+                Ham? 
+                <input
+                id="toppings"
+                type="checkbox"
+                name="toppings"
+                checked={formState.toppings3}
+                onChange={inputChange}
+                />
+            </label><br/>
+
+            <label htmlFor="toppings">
+                Pineapple? 
+                <input
+                id="toppings"
+                type="checkbox"
+                name="toppings"
+                checked={formState.toppings4}
+                onChange={inputChange}
+                />
+            </label><br/>
             
             {/* display our post request data */}
         <pre>{JSON.stringify(post,null, 2)}</pre>
