@@ -6,18 +6,23 @@ describe ("test our form", () => {
         cy.get('input[name="name"]') //remember to have ' ' outside and "" inside
         .type("Natalie")
         .should("have.value", "Natalie");
-        // cy.get('#sizesID')
-        // .select("Small")
+        cy.get('#size')
+        .select("Small")
         // .should("have.value", "Small");
-        // cy.get('[type="checkbox"]').check();
-        // .type("Natalie")
-        // .should("have.value", "Natalie");
+      
 
         cy.get("textarea") //remember to have ' ' outside and "" inside
         .type("instructions go here")
         .should("have.value", "instructions go here");
 
-        
+        // cy.get('[type="checkbox"]')
+        // .check()
+        // .should("be.checked");
 
+        cy.get('[type="checkbox"]')
+        .check()
+        .should("be.checked");
+
+        cy.get("button").click(); //submit button
     })
 })

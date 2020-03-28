@@ -115,7 +115,7 @@ export default function Form (){
 
             <label htmlFor="size">
                 Choose Your Size:
-                <select id="sizesID"
+                <select
                 id="size"
                 // type="dropdown"
                 data cy ="select"
